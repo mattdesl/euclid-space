@@ -56,7 +56,6 @@ io.on('connection', socket => {
 
     // Make a new shape object
     const shape = {
-      time: Date.now(), // time stamp of event
       color,
       fill,
       type,
