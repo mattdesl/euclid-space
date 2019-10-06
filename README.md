@@ -1,6 +1,6 @@
 # euclid-space
 
-A collaborative shape drawing app with colours inspired by [Oliver Byrne's edition of Euclid](https://www.math.ubc.ca/~cass/Euclid/byrne.html).
+A collaborative shape drawing app with colours inspired by [Oliver Byrne's edition of Euclid](https://www.math.ubc.ca/~cass/Euclid/byrne.html) and the [Nicholas Rougeax's interactive Euclid website](https://www.c82.net/euclid/).
 
 When a user joins, they are assigned a random shape and colour which they can place around the document.
 
