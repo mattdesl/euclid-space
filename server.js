@@ -25,6 +25,9 @@ server.listen(port, () => {
 // Below we setup our networking code
 // ----------------------------------
 
+// Max # of shapes in the system at any point
+const MAX_SHAPES = 500;
+
 // each user is assigned a random colour
 const colors = [ '#0a0607', '#ffbe00', '#006697', '#fa0001' ];
 const types = [ 'circle', 'semicircle', 'arc', 'rect', 'triangle' ];
@@ -46,6 +49,11 @@ io.on('connection', socket => {
 
   // When the user adds a shape, add it to a list
   socket.on('add', position => {
+    // If we've hit the limit, remove the oldest shape
+    if (shapes.length > MAX_SHAPES) {
+      shapes.shift();
+    }
+
     // Make a new shape object
     const shape = {
       time: Date.now(), // time stamp of event
@@ -64,20 +72,3 @@ io.on('connection', socket => {
     io.emit('shapes', shapes);
   });
 });
-
-// Last thing we need to do is make sure we clean up shapes
-// Otherwise our page will just clutter forever !!
-setInterval(() => {
-  // 1 minute on screen
-  const MAX_SHAPE_TIME = 30000;
-  const now = Date.now();
-  const newShapes = [];
-  for (let i = 0; i < shapes.length; i++) {
-    const shape = shapes[i];
-    if ((now - shape.time) < MAX_SHAPE_TIME) {
-      newShapes.push(shape);
-    }
-  }
-  shapes = newShapes;
-  io.emit('shapes', shapes);
-}, 5000);
